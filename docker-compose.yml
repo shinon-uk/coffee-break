@@ -3,8 +3,8 @@ services:
   app:
     container_name: coffee-break
     build:
-      context: docker
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/Dockerfile
     volumes:
       - .:/go/src/coffee-break
     ports:
