@@ -1,0 +1,19 @@
+# @see::https://circleci.com/docs/ja/2.0/configuration-reference/
+version: 2.1
+
+# 実行処理は 1 つ以上の名前の付いたジョブで構成され、それらのジョブの指定は jobs マップで行います。
+jobs:
+  # CircleCI上のテスト
+  test:
+    docker:
+      - image: circleci/golang:latest
+    steps:
+      - checkout
+      - run: echo "this is jobs"
+
+# Workflow は、ジョブの集まりとその実行順序の定義に関するルールを決めるものです。
+workflows:
+  build-test-deploy:
+    jobs:
+      # CircleCI上のテスト
+      - test
