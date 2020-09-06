@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -12,4 +13,16 @@ func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
 	c.Data["Email"] = "astaxie@gmail.com"
 	c.TplName = "index.tpl"
+}
+
+func Find() []string {
+	privateFunction()
+	return []string{
+		"test1",
+		"test2",
+	}
+}
+
+func privateFunction() {
+	fmt.Println("これはプライベートメソッドです。")
 }
