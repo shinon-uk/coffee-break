@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -9,20 +8,15 @@ type MainController struct {
 	beego.Controller
 }
 
-func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	c.TplName = "index.tpl"
+func (c *MainController) GetContents() {
+	c.Data["json"] = privateFunction()
+	c.ServeJSON()
 }
 
-func Find() []string {
-	privateFunction()
+// メソッド名の先頭が小文字がプライベートメソッド
+func privateFunction() []string {
 	return []string{
-		"test1",
-		"test2",
+		"value1",
+		"value2",
 	}
-}
-
-func privateFunction() {
-	fmt.Println("これはプライベートメソッドです。")
 }
