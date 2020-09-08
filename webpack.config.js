@@ -42,7 +42,7 @@ module.exports = {
         // 使用するホストを指定する
         host: 'localhost',
         // リクエストをリッスンするポートを指定する
-        port: '8000',
+        port: '10080',
         // サーバーに提供するコンテンツを指定する
         contentBase: path.join(__dirname, "dist"),
     },
