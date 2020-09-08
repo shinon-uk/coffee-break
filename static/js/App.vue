@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h1>dashboard</h1>
-    <p>ここに一覧を表示する</p>
+    <h1>Title</h1>
+    <p>Contents</p>
     <p>{{ this.contents }}</p>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       // コンテンツ情報
-      contents: ['test'],
+      contents: [],
     }
   },
   // インスタンス作成時の処理
