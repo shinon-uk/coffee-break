@@ -7,13 +7,9 @@
   - `cd coffee-break`
 - コンテナを立ち上げる
   - `docker-compose up -d --build`
-- パッケージをインストールし、webpackを実行する<br>
+- パッケージをインストールし、webpackを実行してブラウザを確認する<br>
   - `npm install`
   - `npm run webpack`
-
-- ブラウザで確認する<br>
   - http://localhost:10080/
-
-- `webpack-dev-server`で確認する<br>
+- `webpack-dev-server`を実行するとwebpackを実行しなくても自動で変更が反映される<br>
   - `npm run dev`
-  - http://localhost:8000/
