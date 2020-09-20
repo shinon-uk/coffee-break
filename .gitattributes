@@ -1,3 +1,4 @@
-views/* linguist-vendored
+docker/* linguist-vendored
 static/* linguist-vendored
+views/* linguist-vendored
 webpack.config.js linguist-vendored
