@@ -8,8 +8,15 @@ type MainController struct {
 	beego.Controller
 }
 
-func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	c.TplName = "index.tpl"
+func (c *MainController) GetContents() {
+	c.Data["json"] = privateFunction()
+	c.ServeJSON()
+}
+
+// メソッド名の先頭が小文字がプライベートメソッド
+func privateFunction() []string {
+	return []string{
+		"value1",
+		"value2",
+	}
 }
