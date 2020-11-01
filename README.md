@@ -6,7 +6,7 @@
 - ディレクトリに移動する
   - `cd coffee-break`
 - コンテナを立ち上げる
-  - `docker-compose up -d --build`
+  - `docker-compose up`
 - パッケージをインストールし、webpackを実行してブラウザを確認する<br>
   - `npm install`
   - `npm run webpack`

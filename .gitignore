@@ -2,3 +2,4 @@ coffee-break
 .idea
 node_modules
 dist
+db/mysql_data

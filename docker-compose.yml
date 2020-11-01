@@ -1,11 +1,33 @@
 version: '3'
 services:
   app:
-    container_name: coffee-break
+    container_name: coffee-break-app
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: docker/app/Dockerfile
     volumes:
       - .:/go/src/coffee-break
     ports:
       - 10080:10080
+    depends_on:
+      - db
+  db:
+    container_name: coffee-break-db
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    # 自動起動の有効化
+    restart: always
+    # データを永続化させるための設定
+    volumes:
+      # 初期データを投入するSQLが格納されているdir
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      # 永続化するときにマウントするdir
+      - ./db/mysql_data:/var/lib/mysql
+    # 環境変数の設定
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+    # ポートの公開設定（ホスト:コンテナ）
+    ports:
+      - 3306:3306
