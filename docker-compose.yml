@@ -30,4 +30,4 @@ services:
       MYSQL_ROOT_PASSWORD: password
     # ポートの公開設定（ホスト:コンテナ）
     ports:
-      - 3306:3306
+      - 4306:3306
