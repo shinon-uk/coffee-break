@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: coffee-break-app
+    container_name: coffee_break_app
     build:
       context: .
       dockerfile: docker/app/Dockerfile
@@ -12,10 +12,8 @@ services:
     depends_on:
       - db
   db:
-    container_name: coffee-break-db
-    build:
-      context: .
-      dockerfile: docker/db/Dockerfile
+    container_name: coffee_break_db
+    image: mysql:8.0
     # 自動起動の有効化
     restart: always
     # データを永続化させるための設定
@@ -30,4 +28,4 @@ services:
       MYSQL_ROOT_PASSWORD: password
     # ポートの公開設定（ホスト:コンテナ）
     ports:
-      - 4306:3306
+      - 3306:3306

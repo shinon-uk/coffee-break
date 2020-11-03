@@ -15,7 +15,7 @@ var connectionError error
 const (
 	DriverName = "mysql" // ドライバ名(mysql固定)
 	// user:password@tcp(container-name:port)/dbname ※mysql はデフォルトで用意されているDB
-	DataSourceName = "root:password@tcp(localhost:3306)/coffee_break"
+	DataSourceName = "root:password@tcp(coffee_break_db:3306)/coffee_break"
 )
 
 // 初期化処理
@@ -32,6 +32,7 @@ func init() {
 		panic(err)
 	}
 
+	fmt.Println("ok")
 	defer db.Close()
 }
 
