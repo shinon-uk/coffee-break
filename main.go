@@ -13,9 +13,8 @@ var connectionError error
 
 // DB の接続情報
 const (
-	DriverName = "mysql" // ドライバ名(mysql固定)
-	// user:password@tcp(container-name:port)/dbname ※mysql はデフォルトで用意されているDB
-	DataSourceName = "root:password@tcp(coffee_break_db:3306)/coffee_break"
+	DriverName = "mysql"
+	DataSourceName = "user:password@tcp(coffee_break_db:3306)/coffee_break"
 )
 
 // 初期化処理

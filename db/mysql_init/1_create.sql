@@ -1,6 +1,3 @@
-CREATE DATABASE coffee_break;
-USE coffee_break;
-
 CREATE TABLE sample
 (
     id     INT(11) AUTO_INCREMENT NOT NULL,
