@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
 var db *sql.DB
@@ -31,7 +32,38 @@ func init() {
 		panic(err)
 	}
 
-	fmt.Println("ok")
+	fmt.Println("Get DB Info")
+	rows, err := db.Query("SELECT id, value1, value2 FROM sample")
+	if err != nil {
+		log.Print("error executing database query: ", err)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var value1 string
+		var value2 string
+		if err := rows.Scan(&id, &value1, &value2); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(id, value1, value2)
+	}
+
+	if err := rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("select ok")
+
+	result, err := db.Exec("UPDATE sample SET value1 = ?, value2 = ? WHERE id = ?", "aaa", "aaa", 1)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(result)
+	fmt.Println("update ok")
+
 	defer db.Close()
 }
 
