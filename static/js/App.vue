@@ -5,6 +5,11 @@
       {{ user }}
     </p>
     <h1>ユーザーを追加</h1>
+    <div v-if="errors.length">
+      <p v-for="error in errors">
+        {{ error }}
+      </p>
+    </div>
     <label>
       name：<input v-model="username" name="username" type="text"/><br>
       password：<input v-model="password" name="password" type="text"/><br>
@@ -21,6 +26,7 @@ export default {
   // data オブジェクトのプロパティの値を変更すると、ビューが反応し、新しい値に一致するように更新
   data() {
     return {
+      errors: [],
       users: [],
       username: "",
       password: "",
@@ -32,7 +38,6 @@ export default {
   },
   // メソッド定義
   methods: {
-    // ユーザーを取得する
     fetchAllUser() {
       axios.get('/api/fetchAllUser/')
         .then(response => {
@@ -46,6 +51,9 @@ export default {
         })
     },
     addUser() {
+      if (!this.checkForm()) {
+        return false;
+      }
       const formData = new FormData();
       formData.append("username", this.username);
       formData.append("password", this.password);
@@ -60,6 +68,19 @@ export default {
             this.fetchAllUser()
           }
         })
+    },
+    checkForm: function () {
+      if (this.username && this.password) {
+        return true;
+      }
+      this.errors = [];
+      if (!this.username) {
+        this.errors.push('ユーザー名が入力されてません');
+      }
+      if (!this.password) {
+        this.errors.push('パスワードが入力されてません');
+      }
+      return false;
     }
   }
 };
