@@ -19,5 +19,5 @@ func Init() {
 	if err != nil {
 		logs.Error(err)
 	}
-	orm.RegisterModel(new(Sample))
+	orm.RegisterModel(new(User))
 }

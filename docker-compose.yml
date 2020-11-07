@@ -18,8 +18,6 @@ services:
     restart: always
     # マウント設定
     volumes:
-      # 初期データ投入
-      - ./mysql/init:/docker-entrypoint-initdb.d
       # データを永続化させるための設定
       - ./mysql/data:/var/lib/mysql
       # mysql設定ファイル

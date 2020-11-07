@@ -1,8 +1,15 @@
 <template>
-  <div id="app">
-    <h1>Title</h1>
-    <p>Contents</p>
-    <p>{{ this.contents }}</p>
+  <div id="app" style="text-align: center">
+    <h1>ユーザー一覧</h1>
+    <p v-for="user in users">
+      {{ user }}
+    </p>
+    <h1>ユーザーを追加</h1>
+    <label>
+      name：<input v-model="username" name="username" type="text"/><br>
+      password：<input v-model="password" name="password" type="text"/><br>
+      <input type="submit" value="submit" @click="this.addUser"/>
+    </label>
   </div>
 </template>
 
@@ -14,28 +21,46 @@ export default {
   // data オブジェクトのプロパティの値を変更すると、ビューが反応し、新しい値に一致するように更新
   data() {
     return {
-      // コンテンツ情報
-      contents: [],
+      users: [],
+      username: "",
+      password: "",
     }
   },
   // インスタンス作成時の処理
   created: function () {
-    this.fetchContents()
+    this.fetchAllUser()
   },
   // メソッド定義
   methods: {
-    // コンテンツ情報を取得する
-    fetchContents() {
-      axios.get('/api/getContents/')
-          .then(response => {
-            if (response.status !== 200) {
-              throw new Error('レスポンスエラー')
-            } else {
-              // サーバから取得した情報をdataに設定する
-              this.contents = response.data
-            }
-          })
+    // ユーザーを取得する
+    fetchAllUser() {
+      axios.get('/api/fetchAllUser/')
+        .then(response => {
+          if (response.status !== 200) {
+            throw new Error('レスポンスエラー')
+          } else {
+            this.users = []
+            response = response.data
+            response.forEach(user => this.users.push(user.UserName));
+          }
+        })
     },
+    addUser() {
+      const formData = new FormData();
+      formData.append("username", this.username);
+      formData.append("password", this.password);
+      axios.post(
+        '/api/addUser/',
+        formData
+      )
+        .then(response => {
+          if (response.status !== 200) {
+            throw new Error('レスポンスエラー')
+          } else {
+            this.fetchAllUser()
+          }
+        })
+    }
   }
 };
 </script>
