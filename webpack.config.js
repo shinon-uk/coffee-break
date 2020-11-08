@@ -26,7 +26,7 @@ module.exports = {
     // bundleファイルをwebpackがどこにどのような名前で出力すればいいのかを指定する
     output: {
         filename: '[name].js',
-        path: path.join(projectRoot, 'dist')
+        path: path.join(projectRoot, 'static/dist')
     },
     // モジュールの解決方法を指定する
     resolve: {
@@ -42,9 +42,9 @@ module.exports = {
         // 使用するホストを指定する
         host: 'localhost',
         // リクエストをリッスンするポートを指定する
-        port: '10080',
+        port: '8080',
         // サーバーに提供するコンテンツを指定する
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, "static/dist"),
     },
     // @see::https://webpack.js.org/configuration/devtool/
     devtool: "cheap-module-eval-source-map",

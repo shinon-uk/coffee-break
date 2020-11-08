@@ -1,0 +1,5 @@
+{
+  "database": {
+    "conn": "user:password@tcp(localhost:3306)/coffee_break"
+  }
+}

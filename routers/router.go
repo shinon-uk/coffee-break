@@ -7,14 +7,7 @@ import (
 
 func init() {
 	beego.DelStaticPath("/static")
-	beego.SetStaticPath("//", "dist")
-
-	// api namespace
-	apiNS := beego.NewNamespace("/api",
-
-		// Handle user requests
-		beego.NSRouter("/getContents", &controllers.MainController{}, "get:GetContents"),
-	)
-
-	beego.AddNamespace(apiNS)
+	beego.SetStaticPath("//", "static/dist")
+	beego.Router("/api/fetchAllUser", &controllers.UserController{}, "get:FetchAllUser")
+	beego.Router("/api/addUser", &controllers.UserController{}, "post:AddUser")
 }

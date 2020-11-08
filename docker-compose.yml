@@ -1,11 +1,38 @@
 version: '3'
 services:
   app:
-    container_name: coffee-break
+    container_name: coffee_break_app
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: docker/app/Dockerfile
     volumes:
       - .:/go/src/coffee-break
     ports:
-      - 10080:10080
+      - ${APP_PORT}:10080
+    depends_on:
+      - db
+  db:
+    container_name: coffee_break_db
+    image: mysql:8.0
+    # 自動起動の有効化
+    restart: always
+    # マウント設定
+    volumes:
+      # データを永続化させるための設定
+      - ./mysql/data:/var/lib/mysql
+      # mysql設定ファイル
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      # ログ設定
+      - ./mysql/logs:/var/log/mysql
+    # 環境変数の設定
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=${TZ}
+    ports:
+      - ${DB_PORT}:3306
+    security_opt:
+      - seccomp:unconfined

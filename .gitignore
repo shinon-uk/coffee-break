@@ -1,4 +1,7 @@
 coffee-break
-.idea
-node_modules
-dist
+.idea/
+node_modules/
+static/dist/
+mysql/data/
+mysql/logs/
+.env
