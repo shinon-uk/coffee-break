@@ -10,7 +10,7 @@ type UserRepository struct {
 func (r *UserRepository) FindAll() ([]User, error) {
 	o := orm.NewOrm()
 	var users []User
-	_, err := o.QueryTable("user").All(&users, "UserName")
+	_, err := o.QueryTable("user").All(&users)
 	return users, err
 }
 

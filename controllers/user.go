@@ -16,12 +16,21 @@ type User struct {
 }
 
 func (c *UserController) FetchAllUser() {
+	// ユーザー情報取得
 	users, err := c.repository.FindAll()
 	if err != nil {
 		logs.Error("FindAll err")
 		panic(err)
 	}
-	c.Data["json"] = users
+
+	// UserNameを取り出す
+	var userNames []string
+	for _, v := range users {
+		userNames = append(userNames, v.UserName)
+	}
+
+	// UserNameをjsonレスポンスを返す
+	c.Data["json"] = userNames
 	c.ServeJSON()
 }
 

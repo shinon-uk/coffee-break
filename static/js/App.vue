@@ -46,7 +46,7 @@ export default {
           } else {
             this.users = []
             response = response.data
-            response.forEach(user => this.users.push(user.UserName));
+            response.forEach(user => this.users.push(user));
           }
         })
     },
