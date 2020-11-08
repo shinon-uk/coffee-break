@@ -3,19 +3,31 @@ package models
 import (
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-)
-
-const (
-	DriverName     = "mysql"
-	DataSourceName = "user:password@tcp(coffee_break_db:3306)/coffee_break"
+	"github.com/joho/godotenv"
+	"os"
 )
 
 func Init() {
-	err := orm.RegisterDriver(DriverName, orm.DRMySQL)
+	err := godotenv.Load()
+	if err != nil {
+		logs.Error("Error loading .env file")
+	}
+	err = orm.RegisterDriver(
+		"mysql",
+		orm.DRMySQL,
+	)
 	if err != nil {
 		logs.Error(err)
 	}
-	err = orm.RegisterDataBase("default", DriverName, DataSourceName)
+	user := os.Getenv("MYSQL_USER")
+	password := os.Getenv("MYSQL_PASSWORD")
+	database := os.Getenv("MYSQL_DATABASE")
+	port := os.Getenv("DB_PORT")
+	err = orm.RegisterDataBase(
+		"default",
+		"mysql",
+		user+":"+password+"@tcp(coffee_break_db:"+port+")/"+database,
+	)
 	if err != nil {
 		logs.Error(err)
 	}
