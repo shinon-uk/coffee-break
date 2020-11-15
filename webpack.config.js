@@ -21,49 +21,49 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const WriteFileWebPackPlugin = require('write-file-webpack-plugin');
 
 module.exports = {
-    // エントリーポイントを指定する
-    entry: './static/js/index.js',
-    // bundleファイルをwebpackがどこにどのような名前で出力すればいいのかを指定する
-    output: {
-        filename: '[name].js',
-        path: path.join(projectRoot, 'static/dist')
+  // エントリーポイントを指定する
+  entry: './static/js/index.js',
+  // bundleファイルをwebpackがどこにどのような名前で出力すればいいのかを指定する
+  output: {
+    filename: '[name].js',
+    path: path.join(projectRoot, 'static/dist')
+  },
+  // モジュールの解決方法を指定する
+  resolve: {
+    // エイリアスを作成する
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
     },
-    // モジュールの解決方法を指定する
-    resolve: {
-        // エイリアスを作成する
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js',
-        },
-        // 解決順を指定する
-        extensions: ['.js', '.vue']
-    },
-    // webpack-dev-serverのオプションを選択する
-    devServer: {
-        // 使用するホストを指定する
-        host: 'localhost',
-        // リクエストをリッスンするポートを指定する
-        port: '8080',
-        // サーバーに提供するコンテンツを指定する
-        contentBase: path.join(__dirname, "static/dist"),
-    },
-    // @see::https://webpack.js.org/configuration/devtool/
-    devtool: "cheap-module-eval-source-map",
-    // ローダーの設定
-    module: {
-        rules: [
-            // VueLoaderPluginで必要な設定
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            },
-        ]
-    },
-    // プラグインの設定
-    plugins: [
-        new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'static/index.html')
-        }),
-        new WriteFileWebPackPlugin(),
+    // 解決順を指定する
+    extensions: ['.js', '.vue']
+  },
+  // webpack-dev-serverのオプションを選択する
+  devServer: {
+    // 使用するホストを指定する
+    host: 'localhost',
+    // リクエストをリッスンするポートを指定する
+    port: '8080',
+    // サーバーに提供するコンテンツを指定する
+    contentBase: path.join(__dirname, "static/dist"),
+  },
+  // @see::https://webpack.js.org/configuration/devtool/
+  devtool: "cheap-module-eval-source-map",
+  // ローダーの設定
+  module: {
+    rules: [
+      // VueLoaderPluginで必要な設定
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
     ]
+  },
+  // プラグインの設定
+  plugins: [
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'static/index.html')
+    }),
+    new WriteFileWebPackPlugin(),
+  ]
 };
