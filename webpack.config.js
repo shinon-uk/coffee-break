@@ -21,21 +21,24 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const WriteFileWebPackPlugin = require('write-file-webpack-plugin');
 
 module.exports = {
-  // エントリーポイントを指定する
-  entry: './static/js/index.js',
+  // モード値を production に設定すると最適化された状態で、development に設定するとソースマップ有効でJSファイルが出力される
+  mode: 'development',
+  // メインとなるJavaScriptファイル（エントリーポイント）
+  entry: './static/js/index.ts',
   // bundleファイルをwebpackがどこにどのような名前で出力すればいいのかを指定する
   output: {
     filename: '[name].js',
     path: path.join(projectRoot, 'static/dist')
   },
-  // モジュールの解決方法を指定する
+  // import文でファイル解決するため
+  // これを定義しないと import 文で拡張子を書く必要が生まれる
   resolve: {
     // エイリアスを作成する
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
     },
     // 解決順を指定する
-    extensions: ['.js', '.vue']
+    extensions: ['.js', '.vue', '.ts']
   },
   // webpack-dev-serverのオプションを選択する
   devServer: {
@@ -55,6 +58,16 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      // TypeScriptに必要な設定
+      {
+        test: /\.ts$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/],
+          },
+        },
       },
     ]
   },

@@ -5,7 +5,7 @@
       {{ user }}
     </p>
     <h1>ユーザーを追加</h1>
-    <div v-if="errors.length">
+    <div v-if="errors != null && errors.length > 0">
       <p v-for="error in errors">
         {{ error }}
       </p>
@@ -13,75 +13,68 @@
     <label>
       name：<input v-model="username" name="username" type="text"/><br>
       password：<input v-model="password" name="password" type="text"/><br>
-      <input type="submit" value="submit" @click="this.addUser"/>
+      <input type="submit" value="submit" @click="addUser"/>
     </label>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from "axios"
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  name: "app",
-  // data オブジェクトのプロパティの値を変更すると、ビューが反応し、新しい値に一致するように更新
-  data() {
-    return {
-      errors: [],
-      users: [],
-      username: "",
-      password: "",
-    }
-  },
-  // インスタンス作成時の処理
-  created: function () {
+@Component
+export default class App extends Vue {
+
+  private users: string[] = [];
+  private errors: string[] = [];
+  private username = '';
+  private password: string = '';
+
+  private created(): void {
     this.fetchAllUser()
-  },
-  // メソッド定義
-  methods: {
-    fetchAllUser() {
-      axios.get('/api/fetchAllUser/')
-        .then(response => {
-          if (response.status !== 200) {
-            throw new Error('レスポンスエラー')
-          } else {
-            this.users = []
-            response = response.data
-            response.forEach(user => this.users.push(user));
-          }
-        })
-    },
-    addUser() {
-      if (!this.checkForm()) {
-        return false;
-      }
-      const formData = new FormData();
-      formData.append("username", this.username);
-      formData.append("password", this.password);
-      axios.post(
-        '/api/addUser/',
-        formData
-      )
-        .then(response => {
-          if (response.status !== 200) {
-            throw new Error('レスポンスエラー')
-          } else {
-            this.fetchAllUser()
-          }
-        })
-    },
-    checkForm: function () {
-      if (this.username && this.password) {
-        return true;
-      }
-      this.errors = [];
-      if (!this.username) {
-        this.errors.push('ユーザー名が入力されてません');
-      }
-      if (!this.password) {
-        this.errors.push('パスワードが入力されてません');
-      }
-      return false;
-    }
   }
-};
+
+  private async fetchAllUser(): Promise<void> {
+    const response: any = await axios.get('/api/fetchAllUser/')
+      .catch((err: Error) => {
+        throw new Error(err.message);
+      });
+    this.users = []
+    response.data.forEach((user: any) => this.users.push(user));
+  }
+
+  private async addUser(): Promise<void> {
+    if (!this.checkForm()) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("username", this.username);
+    formData.append("password", this.password);
+    axios.post(
+      '/api/addUser/',
+      formData
+    )
+      .then(response => {
+        if (response.status !== 200) {
+          throw new Error('レスポンスエラー')
+        } else {
+          this.fetchAllUser()
+        }
+      })
+  }
+
+  private checkForm(): boolean {
+    if (this.username && this.password) {
+      return true;
+    }
+    this.errors = [];
+    if (!this.username) {
+      this.errors.push('ユーザー名が入力されてません');
+    }
+    if (!this.password) {
+      this.errors.push('パスワードが入力されてません');
+    }
+    return false;
+  }
+}
 </script>
