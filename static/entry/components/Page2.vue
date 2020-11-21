@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>ページ2</div>
+    <h1>ページ2</h1>
   </div>
 </template>
 

@@ -1,20 +1,20 @@
 <template>
   <div>
     <h1>ユーザー一覧</h1>
-    <!--  <p v-for="user in users">-->
-    <!--    {{ user }}-->
-    <!--  </p>-->
-    <!--  <h1>ユーザーを追加</h1>-->
-    <!--  <div v-if="errors != null && errors.length > 0">-->
-    <!--    <p v-for="error in errors">-->
-    <!--      {{ error }}-->
-    <!--    </p>-->
-    <!--  </div>-->
-    <!--  <label>-->
-    <!--    name：<input v-model="username" name="username" type="text"/><br>-->
-    <!--    password：<input v-model="password" name="password" type="text"/><br>-->
-    <!--    <input type="submit" value="submit" @click="addUser"/>-->
-    <!--  </label>-->
+    <p v-for="user in users">
+      {{ user }}
+    </p>
+    <h1>ユーザーを追加</h1>
+    <div v-if="errors != null && errors.length > 0" style="color: #ff0000">
+      <p v-for="error in errors">
+        {{ error }}
+      </p>
+    </div>
+    <label>
+      name：<input v-model="username" name="username" type="text"/><br>
+      password：<input v-model="password" name="password" type="text"/><br>
+      <input type="submit" value="submit" @click="addUser"/>
+    </label>
   </div>
 </template>
 
