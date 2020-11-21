@@ -5,12 +5,6 @@ const path = require('path');
 // プロジェクトルート
 const projectRoot = path.resolve(__dirname);
 
-// webpackバンドルを提供するHTMLファイルの作成を簡素化するwebpackプラグイン
-// これが無いとhtmlファイルへの変更が反映されない
-// @see::https://webpack.js.org/plugins/html-webpack-plugin/
-// @see::https://github.com/jantimon/html-webpack-plugin
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 // webpackのローダー。これが無いとwebpackが動かない。
 // @see::https://vue-loader.vuejs.org/
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -74,9 +68,6 @@ module.exports = {
   // プラグインの設定
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'static/index.html')
-    }),
     new WriteFileWebPackPlugin(),
   ]
 };
