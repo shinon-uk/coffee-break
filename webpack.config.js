@@ -24,7 +24,7 @@ module.exports = {
   // モード値を production に設定すると最適化された状態で、development に設定するとソースマップ有効でJSファイルが出力される
   mode: 'development',
   // メインとなるJavaScriptファイル（エントリーポイント）
-  entry: './static/js/index.ts',
+  entry: './static/entry/index.ts',
   // bundleファイルをwebpackがどこにどのような名前で出力すればいいのかを指定する
   output: {
     filename: '[name].js',
