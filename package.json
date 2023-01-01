@@ -21,18 +21,18 @@
   },
   "homepage": "https://github.com/shinon-uk/coffee-break#readme",
   "devDependencies": {
-    "html-webpack-plugin": "^4.5.0",
+    "html-webpack-plugin": "^5.5.0",
     "typescript": "^4.1.2",
-    "vue-loader": "^15.9.5",
+    "vue-loader": "^17.0.1",
     "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^3.11.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "ts-loader": "^8.0.11",
+    "ts-loader": "^8.4.0",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
